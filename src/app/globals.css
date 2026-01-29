@@ -1,0 +1,108 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #6106DF;
+  --color-primary-light: #7B2FE8;
+  --color-primary-dark: #4A05A8;
+  --color-primary-glow: rgba(97, 6, 223, 0.3);
+  --color-dark-bg: #0A0A0A;
+  --color-dark-card: #111111;
+  --color-dark-border: #1A1A1A;
+  --color-gray-brand: #D9D9D9;
+  --color-gray-dim: #888888;
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* Base Styles */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #000000;
+  color: #D9D9D9;
+  font-family: var(--font-sans);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0A0A0A;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #333;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #6106DF;
+}
+
+/* Geometric animation */
+@keyframes float-geo {
+  0%, 100% { transform: skewX(-15deg) translateY(0); }
+  50% { transform: skewX(-15deg) translateY(-20px); }
+}
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 0.6s ease-out forwards;
+}
+
+.animate-float-geo {
+  animation: float-geo 8s ease-in-out infinite;
+}
+
+.animate-float-geo-reverse {
+  animation: float-geo 10s ease-in-out infinite reverse;
+}
+
+.animate-float-geo-slow {
+  animation: float-geo 12s ease-in-out infinite;
+}
+
+/* Dot pattern background */
+.bg-dots {
+  background-image: radial-gradient(circle, rgba(97, 6, 223, 0.15) 1px, transparent 1px);
+  background-size: 30px 30px;
+}
+
+/* Grid pattern background */
+.bg-grid {
+  background-image:
+    linear-gradient(rgba(97, 6, 223, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(97, 6, 223, 0.05) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+
+/* Section gradient divider */
+.section-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(97, 6, 223, 0.4), transparent);
+}
+
+/* Scroll reveal animations */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.reveal-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
