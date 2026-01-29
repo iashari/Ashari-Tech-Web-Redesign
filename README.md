@@ -2,6 +2,8 @@
 
 Website company profile modern untuk **Ashari.Tech** - Perusahaan teknologi AI Indonesia yang berfokus pada solusi AI untuk bisnis dan transformasi digital UMKM.
 
+![Screenshot](public/screenshot.png)
+
 ![Next.js](https://img.shields.io/badge/Next.js-16.1.4-black?style=flat-square&logo=next.js)
 ![React](https://img.shields.io/badge/React-19-61DAFB?style=flat-square&logo=react)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?style=flat-square&logo=typescript)
