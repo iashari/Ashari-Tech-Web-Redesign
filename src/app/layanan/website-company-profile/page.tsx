@@ -109,7 +109,8 @@ export default function WebsitePage() {
 
             {/* Main Title */}
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
-              Jasa Pembuatan Website & Company Profile
+              Jasa Pembuatan<br />
+              Website & Company Profile
             </h1>
 
             {/* Subtitle */}
