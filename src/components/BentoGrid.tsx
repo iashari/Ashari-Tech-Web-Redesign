@@ -57,7 +57,7 @@ const updateCardGlowProperties = (
 };
 
 const useMobileDetection = () => {
-  const [isMobile, setIsMobile] = useState(false);
+  const [isMobile, setIsMobile] = useState<boolean | null>(null);
 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth <= MOBILE_BREAKPOINT);
@@ -66,7 +66,8 @@ const useMobileDetection = () => {
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
-  return isMobile;
+  // Return false during SSR/initial render to match server
+  return isMobile ?? false;
 };
 
 export function BentoGrid({
@@ -247,6 +248,7 @@ export function BentoGrid({
 
       <div
         ref={gridRef}
+        suppressHydrationWarning
         className={`
           relative grid grid-cols-1 gap-4
           ${colClasses[cols]}
@@ -315,6 +317,7 @@ export function BentoCard({
   return (
     <motion.div
       ref={cardRef}
+      suppressHydrationWarning
       className={`
         bento-card bento-card--border-glow
         relative overflow-hidden rounded-2xl

@@ -4,6 +4,8 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import { BentoGrid, BentoCard } from "@/components/BentoGrid";
+import FaultyTerminal from "@/components/FaultyTerminal";
+import GlassSurface from "@/components/GlassSurface";
 
 export default function AISolutionsPage() {
   const services = [
@@ -77,39 +79,77 @@ export default function AISolutionsPage() {
       <Navbar />
 
       {/* Hero Section */}
-      <section className="relative pt-32 pb-20 overflow-hidden">
-        {/* Background gradient orbs */}
-        <div className="absolute top-20 left-1/4 w-[500px] h-[500px] bg-primary/20 rounded-full blur-[120px] pointer-events-none" />
-        <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-primary/10 rounded-full blur-[100px] pointer-events-none" />
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-black">
+        {/* FaultyTerminal Background */}
+        <div className="absolute inset-0">
+          <FaultyTerminal
+            tint="#6106DF"
+            scale={2.5}
+            gridMul={[2, 1]}
+            digitSize={1.5}
+            timeScale={0.4}
+            scanlineIntensity={0.4}
+            glitchAmount={1.2}
+            flickerAmount={1}
+            noiseAmp={1.2}
+            chromaticAberration={0}
+            curvature={0.1}
+            mouseReact={true}
+            mouseStrength={0.4}
+            pageLoadAnimation={true}
+            brightness={1.3}
+          />
+        </div>
 
-        <div className="relative max-w-[1100px] mx-auto px-6 md:px-16">
-          <div className="max-w-3xl">
-            <span className="inline-block px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs tracking-wider mb-6">
-              AI SOLUTIONS INDONESIA
+        {/* Gradient overlay */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent pointer-events-none" />
+
+        {/* Main Content - Centered */}
+        <div className="relative z-10 text-center px-6 md:px-16 pt-20 pointer-events-none">
+          {/* Badge */}
+          <div className="mb-8">
+            <span className="relative inline-flex rounded-full overflow-hidden">
+              <div className="absolute inset-0">
+                <GlassSurface
+                  width="100%"
+                  height="100%"
+                  borderRadius={50}
+                  borderWidth={1}
+                  brightness={40}
+                  opacity={0.9}
+                  blur={4}
+                  displace={0}
+                  distortionScale={-300}
+                  redOffset={-50}
+                  greenOffset={-50}
+                  blueOffset={-50}
+                  className="!w-full !h-full"
+                />
+              </div>
+              <span className="relative z-10 px-4 py-1.5 text-white text-xs tracking-wider font-medium">
+                AI SOLUTIONS INDONESIA
+              </span>
             </span>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6">
-              AI Solutions Indonesia untuk{" "}
-              <span className="text-primary">Bisnis Modern</span>
-            </h1>
-            <p className="text-lg text-white/70 leading-relaxed mb-8 max-w-2xl">
-              Custom artificial intelligence untuk automasi bisnis, chatbot cerdas, dan machine learning dari perusahaan AI Indonesia terpercaya.
-            </p>
-            <div className="flex flex-wrap gap-4">
-              <a
-                href="https://wa.me/6285280452688"
-                target="_blank"
-                className="px-6 py-3 bg-primary hover:bg-primary/90 text-white rounded-full text-sm font-medium transition-all hover:scale-105"
-              >
-                Konsultasi Gratis →
-              </a>
-              <a
-                href="#services"
-                className="px-6 py-3 border border-white/20 hover:border-white/40 text-white rounded-full text-sm font-medium transition-all"
-              >
-                Lihat Layanan
-              </a>
-            </div>
           </div>
+
+          {/* Main Title */}
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
+            AI Solutions Indonesia
+          </h1>
+
+          {/* Subtitle */}
+          <h2
+            className="text-xl md:text-2xl lg:text-3xl font-medium text-white mb-6"
+            style={{ textShadow: "0 0 20px rgba(97, 6, 223, 0.8), 0 0 40px rgba(97, 6, 223, 0.4)" }}
+          >
+            untuk Bisnis Modern
+          </h2>
+
+          {/* Description */}
+          <p className="text-base md:text-lg text-white/70 leading-relaxed max-w-2xl mx-auto">
+            Custom artificial intelligence untuk automasi bisnis, chatbot cerdas,
+            dan machine learning dari perusahaan AI Indonesia terpercaya.
+          </p>
         </div>
       </section>
 

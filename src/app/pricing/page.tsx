@@ -4,6 +4,7 @@ import { useState } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
+import Squares from "@/components/Squares";
 
 const categories = [
   {
@@ -120,22 +121,35 @@ export default function PricingPage() {
   return (
     <>
       <Navbar />
-      <main className="pt-24 pb-16">
+      <main className="pb-16">
         {/* Header */}
-        <section className="py-28 bg-black relative overflow-hidden">
-          {/* Gradient orbs */}
-          <div className="absolute top-[-20%] left-[-10%] w-[600px] h-[600px] bg-primary/30 rounded-full blur-[200px] pointer-events-none" />
-          <div className="absolute bottom-[-20%] right-[-10%] w-[500px] h-[500px] bg-primary/20 rounded-full blur-[180px] pointer-events-none" />
+        <section className="relative min-h-screen flex items-center justify-center bg-black overflow-hidden">
+          {/* Squares Background */}
+          <div className="absolute inset-0">
+            <Squares
+              color="#6106DF"
+              size={60}
+              speed={0.5}
+              direction="diagonal"
+            />
+          </div>
+          <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-black to-transparent pointer-events-none" />
 
-          <div className="max-w-[1100px] mx-auto px-6 md:px-16 text-center relative">
-            <p className="text-xs uppercase tracking-[0.3em] text-primary font-medium mb-4">
+          <div className="relative z-10 text-center px-6 md:px-16 pt-20 pointer-events-none">
+            <p className="text-xs uppercase tracking-[0.3em] text-primary font-medium mb-8">
               Pricing
             </p>
-            <h1 className="text-3xl md:text-4xl font-bold text-white mb-6 tracking-tight leading-[1.15]">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
               Investasi yang Terukur
             </h1>
-            <p className="text-base text-white/70 max-w-[500px] mx-auto leading-relaxed">
-              Semua layanan termasuk AI enhancement. Harga transparan, tanpa biaya tersembunyi.
+            <h2
+              className="text-xl md:text-2xl lg:text-3xl font-medium text-white mb-6"
+              style={{ textShadow: "0 0 20px rgba(97, 6, 223, 0.8), 0 0 40px rgba(97, 6, 223, 0.4)" }}
+            >
+              Harga Transparan, Tanpa Biaya Tersembunyi
+            </h2>
+            <p className="text-base md:text-lg text-white/70 leading-relaxed max-w-2xl mx-auto">
+              Semua layanan termasuk AI enhancement. Pilih paket yang sesuai dengan kebutuhan bisnis Anda.
             </p>
           </div>
         </section>

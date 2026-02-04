@@ -18,6 +18,8 @@ uniform float uAmplitude;
 uniform vec3 uColorStops[3];
 uniform vec2 uResolution;
 uniform float uBlend;
+uniform vec2 uMouse;
+uniform float uMouseActive;
 
 out vec4 fragColor;
 
@@ -70,18 +72,18 @@ struct ColorStop {
   float position;
 };
 
-#define COLOR_RAMP(colors, factor, finalColor) {              \\
-  int index = 0;                                            \\
-  for (int i = 0; i < 2; i++) {                               \\
-     ColorStop currentColor = colors[i];                    \\
-     bool isInBetween = currentColor.position <= factor;    \\
-     index = int(mix(float(index), float(i), float(isInBetween))); \\
-  }                                                         \\
-  ColorStop currentColor = colors[index];                   \\
-  ColorStop nextColor = colors[index + 1];                  \\
-  float range = nextColor.position - currentColor.position; \\
-  float lerpFactor = (factor - currentColor.position) / range; \\
-  finalColor = mix(currentColor.color, nextColor.color, lerpFactor); \\
+#define COLOR_RAMP(colors, factor, finalColor) {              \
+  int index = 0;                                            \
+  for (int i = 0; i < 2; i++) {                               \
+     ColorStop currentColor = colors[i];                    \
+     bool isInBetween = currentColor.position <= factor;    \
+     index = int(mix(float(index), float(i), float(isInBetween))); \
+  }                                                         \
+  ColorStop currentColor = colors[index];                   \
+  ColorStop nextColor = colors[index + 1];                  \
+  float range = nextColor.position - currentColor.position; \
+  float lerpFactor = (factor - currentColor.position) / range; \
+  finalColor = mix(currentColor.color, nextColor.color, lerpFactor); \
 }
 
 void main() {
@@ -95,10 +97,24 @@ void main() {
   vec3 rampColor;
   COLOR_RAMP(colors, uv.x, rampColor);
 
+  // Mouse influence on noise
+  float mouseEffect = 0.0;
+  if (uMouseActive > 0.5) {
+    float dist = distance(uv, uMouse);
+    mouseEffect = exp(-dist * 5.0) * 0.5 * sin(uTime * 3.0 + dist * 20.0);
+  }
+
   float height = snoise(vec2(uv.x * 2.0 + uTime * 0.1, uTime * 0.25)) * 0.5 * uAmplitude;
+  height += mouseEffect;
   height = exp(height);
   height = (uv.y * 2.0 - height + 0.2);
   float intensity = 0.6 * height;
+
+  // Brighten near mouse
+  if (uMouseActive > 0.5) {
+    float dist = distance(uv, uMouse);
+    intensity += exp(-dist * 8.0) * 0.3;
+  }
 
   float midPoint = 0.20;
   float auroraAlpha = smoothstep(midPoint - uBlend * 0.5, midPoint + uBlend * 0.5, intensity);
@@ -126,6 +142,7 @@ const Aurora: React.FC<AuroraProps> = ({
 }) => {
   const ctnDom = useRef<HTMLDivElement>(null);
   const propsRef = useRef({ colorStops, amplitude, blend, speed });
+  const mouseRef = useRef({ x: 0.5, y: 0.5, active: false });
   propsRef.current = { colorStops, amplitude, blend, speed };
 
   useEffect(() => {
@@ -157,6 +174,20 @@ const Aurora: React.FC<AuroraProps> = ({
     }
     window.addEventListener("resize", resize);
 
+    const handleMouseMove = (e: MouseEvent) => {
+      const rect = ctn.getBoundingClientRect();
+      mouseRef.current.x = (e.clientX - rect.left) / rect.width;
+      mouseRef.current.y = 1.0 - (e.clientY - rect.top) / rect.height;
+      mouseRef.current.active = true;
+    };
+
+    const handleMouseLeave = () => {
+      mouseRef.current.active = false;
+    };
+
+    ctn.addEventListener("mousemove", handleMouseMove);
+    ctn.addEventListener("mouseleave", handleMouseLeave);
+
     const geometry = new Triangle(gl);
     if (geometry.attributes.uv) {
       delete geometry.attributes.uv;
@@ -176,6 +207,8 @@ const Aurora: React.FC<AuroraProps> = ({
         uColorStops: { value: colorStopsArray },
         uResolution: { value: [ctn.offsetWidth, ctn.offsetHeight] },
         uBlend: { value: blend },
+        uMouse: { value: [0.5, 0.5] },
+        uMouseActive: { value: 0 },
       },
     });
 
@@ -186,9 +219,14 @@ const Aurora: React.FC<AuroraProps> = ({
     const update = (t: number) => {
       animateId = requestAnimationFrame(update);
       const current = propsRef.current;
+      const mouse = mouseRef.current;
+
       program.uniforms.uTime.value = t * 0.01 * (current.speed ?? 1.0) * 0.1;
       program.uniforms.uAmplitude.value = current.amplitude ?? 1.0;
       program.uniforms.uBlend.value = current.blend ?? 0.5;
+      program.uniforms.uMouse.value = [mouse.x, mouse.y];
+      program.uniforms.uMouseActive.value = mouse.active ? 1.0 : 0.0;
+
       const stops = current.colorStops ?? colorStops;
       program.uniforms.uColorStops.value = stops.map((hex: string) => {
         const c = new Color(hex);
@@ -203,6 +241,8 @@ const Aurora: React.FC<AuroraProps> = ({
     return () => {
       cancelAnimationFrame(animateId);
       window.removeEventListener("resize", resize);
+      ctn.removeEventListener("mousemove", handleMouseMove);
+      ctn.removeEventListener("mouseleave", handleMouseLeave);
       if (ctn && (gl.canvas as HTMLCanvasElement).parentNode === ctn) {
         ctn.removeChild(gl.canvas as HTMLCanvasElement);
       }

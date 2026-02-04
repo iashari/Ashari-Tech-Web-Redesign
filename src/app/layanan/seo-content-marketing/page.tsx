@@ -4,6 +4,8 @@ import { useState } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
+import FaultyTerminal from "@/components/FaultyTerminal";
+import GlassSurface from "@/components/GlassSurface";
 
 export default function SEOPage() {
   const [activeTier, setActiveTier] = useState(1);
@@ -47,24 +49,78 @@ export default function SEOPage() {
   return (
     <>
       <Navbar />
-      <main className="pt-24 pb-16">
-        {/* Header */}
-        <section className="py-28 bg-black relative overflow-hidden">
-          {/* Gradient orbs */}
-          <div className="absolute top-[-20%] left-[-10%] w-[600px] h-[600px] bg-primary/30 rounded-full blur-[200px] pointer-events-none" />
-          <div className="absolute bottom-[-20%] right-[-10%] w-[500px] h-[500px] bg-primary/20 rounded-full blur-[180px] pointer-events-none" />
+      <main className="pb-16">
+        {/* Hero Section */}
+        <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-black">
+          {/* FaultyTerminal Background */}
+          <div className="absolute inset-0">
+            <FaultyTerminal
+              tint="#6106DF"
+              scale={2.5}
+              gridMul={[2, 1]}
+              digitSize={1.5}
+              timeScale={0.4}
+              scanlineIntensity={0.4}
+              glitchAmount={1.2}
+              flickerAmount={1}
+              noiseAmp={1.2}
+              chromaticAberration={0}
+              curvature={0.1}
+              mouseReact={true}
+              mouseStrength={0.4}
+              pageLoadAnimation={true}
+              brightness={1.3}
+            />
+          </div>
 
-          <div className="max-w-[1100px] mx-auto px-6 md:px-16 text-center relative">
-            <p className="text-xs uppercase tracking-[0.3em] text-primary font-medium mb-4">
-              AI-Powered
-            </p>
-            <h1 className="text-3xl md:text-4xl font-bold text-white mb-6 tracking-tight leading-[1.15]">
+          {/* Gradient overlay */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent pointer-events-none" />
+
+          {/* Main Content - Centered */}
+          <div className="relative z-10 text-center px-6 md:px-16 pt-20 pointer-events-none">
+            {/* Badge */}
+            <div className="mb-8">
+              <span className="relative inline-flex rounded-full overflow-hidden">
+                <div className="absolute inset-0">
+                  <GlassSurface
+                    width="100%"
+                    height="100%"
+                    borderRadius={50}
+                    borderWidth={1}
+                    brightness={40}
+                    opacity={0.9}
+                    blur={4}
+                    displace={0}
+                    distortionScale={-300}
+                    redOffset={-50}
+                    greenOffset={-50}
+                    blueOffset={-50}
+                    className="!w-full !h-full"
+                  />
+                </div>
+                <span className="relative z-10 px-4 py-1.5 text-white text-xs tracking-wider font-medium">
+                  AI-POWERED
+                </span>
+              </span>
+            </div>
+
+            {/* Main Title */}
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
               Jasa SEO & Content Marketing
             </h1>
-            <p className="text-base text-white/70 max-w-[600px] mx-auto leading-relaxed mb-4">
+
+            {/* Subtitle */}
+            <h2
+              className="text-xl md:text-2xl lg:text-3xl font-medium text-white mb-6"
+              style={{ textShadow: "0 0 20px rgba(97, 6, 223, 0.8), 0 0 40px rgba(97, 6, 223, 0.4)" }}
+            >
+              Mulai Rp 3 Juta/bulan
+            </h2>
+
+            {/* Description */}
+            <p className="text-base md:text-lg text-white/70 leading-relaxed max-w-2xl mx-auto">
               Tingkatkan ranking Google dengan strategi SEO berbasis AI — keyword research otomatis, content optimization, dan quality link building untuk pertumbuhan organik berkelanjutan
             </p>
-            <p className="text-white font-semibold text-lg">Mulai Rp 3 Juta/bulan</p>
           </div>
         </section>
 

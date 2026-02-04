@@ -5,6 +5,7 @@ import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import { BentoCard } from "@/components/BentoGrid";
 import Link from "next/link";
+import Squares from "@/components/Squares";
 
 interface BlogPost {
   slug: string;
@@ -68,10 +69,19 @@ export default function BlogPage() {
 
       {/* Hero Section */}
       <section className="relative pt-32 pb-20 overflow-hidden">
-        <div className="absolute top-20 left-1/4 w-[500px] h-[500px] bg-primary/20 rounded-full blur-[120px] pointer-events-none" />
+        {/* Squares Background */}
+        <div className="absolute inset-0">
+          <Squares
+            color="#6106DF"
+            size={40}
+            speed={0.5}
+            direction="diagonal"
+          />
+        </div>
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/20 to-black/80 pointer-events-none" />
 
-        <div className="relative max-w-[1100px] mx-auto px-6 md:px-16">
-          <span className="inline-block px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs tracking-wider mb-6">
+        <div className="relative z-10 max-w-[1100px] mx-auto px-6 md:px-16 pointer-events-none">
+          <span className="inline-block px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs tracking-wider mb-6 pointer-events-auto">
             BLOG
           </span>
           <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">

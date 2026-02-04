@@ -2,6 +2,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import Link from "next/link";
+import Particles from "@/components/Particles";
 
 interface BlogPost {
   slug: string;
@@ -302,12 +303,21 @@ export default async function BlogPostPage({
 
       {/* Hero Section */}
       <section className="relative pt-32 pb-12 overflow-hidden">
-        <div className="absolute top-20 left-1/4 w-[500px] h-[500px] bg-primary/20 rounded-full blur-[120px] pointer-events-none" />
+        {/* Particles Background */}
+        <div className="absolute inset-0">
+          <Particles
+            color="#6106DF"
+            particleCount={100}
+            speed={0.5}
+            connectDistance={150}
+          />
+        </div>
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/20 to-black/80 pointer-events-none" />
 
-        <div className="relative max-w-[800px] mx-auto px-6 md:px-16">
+        <div className="relative z-10 max-w-[800px] mx-auto px-6 md:px-16 pointer-events-none">
           <Link
             href="/blog"
-            className="inline-flex items-center gap-2 text-white/60 hover:text-white text-sm mb-8 transition-colors"
+            className="inline-flex items-center gap-2 text-white/60 hover:text-white text-sm mb-8 transition-colors pointer-events-auto"
           >
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />

@@ -186,6 +186,7 @@ const RotatingText = forwardRef<RotatingTextHandle, RotatingTextProps>(
         {...rest}
         layout
         transition={transition}
+        suppressHydrationWarning
       >
         <span className="sr-only">{texts[currentTextIndex]}</span>
         <AnimatePresence

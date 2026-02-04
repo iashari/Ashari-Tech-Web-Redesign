@@ -36,11 +36,11 @@ export default function FAQ() {
         </div>
 
         {/* FAQ Items */}
-        <div className="max-w-[800px]">
+        <div className="w-full">
           {faqs.map((faq, i) => (
             <div
               key={i}
-              className={`border-b border-white/10 ${activeIndex === i ? "bg-white/[0.02]" : ""} transition-colors`}
+              className={`border-b border-white/10 rounded-lg px-4 ${activeIndex === i ? "bg-white/[0.02]" : ""} transition-colors`}
             >
               <button
                 onClick={() => setActiveIndex(activeIndex === i ? null : i)}
